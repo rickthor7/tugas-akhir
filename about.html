@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tentang Kami - RickStore</title>
+    <style>
+        :root{
+            --white : #fff;
+            --black : #000;
+            --dark-blue : #2C2546;
+            --pink : #fa0758;
+            --grape : #8134AF;
+            --slate : #0f172a;
+            --slate-500 : #64748b;
+            --blue : #211166;
+        }
+        *,
+        *::before,
+        *::after {
+            list-style-type: none;
+            text-decoration: none;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Tahoma';
+        }
+        body {
+            background-color: var(--black);
+            color: var(--white);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            z-index: 999;
+            width: 100%;
+            background-color: var(--blue);
+            padding-bottom: 2%;
+        }
+        .wrap {
+            max-width: 1100px;
+            margin: auto;
+            padding-left: 2rem;
+            padding-right: 2rem;
+        }
+        .left-header {
+            display: flex;
+        }
+        .search {
+            margin-top: 18px;
+            margin-bottom: 15px;
+        }
+        .search-input {
+            width: 120%;
+            padding: 3%;
+            border: none;
+            background-color: var(--slate);
+        }
+        .navbar  ul {
+            display: flex;
+        }
+        .navbar  ul  li  a {
+            display: inline-block;
+            flex-direction: column;
+            padding: 1.5px;
+            min-width: 85px;
+            color: var(--white);
+        }
+        .login-btn {
+            background-image: linear-gradient(to right,var(--grape),var(--pink));
+            border-radius: 5px;
+        }
+        
+        .content {
+            margin-top: 10%;
+            margin-bottom: 5%;
+        }
+        
+        .page-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+            background: linear-gradient(to right, var(--grape), var(--pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .about-section {
+            margin-bottom: 3rem;
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--pink);
+        }
+        
+        .about-text {
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .highlight {
+            color: var(--pink);
+            font-weight: bold;
+        }
+        
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .value-card {
+            background-color: var(--dark-blue);
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .value-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .value-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--pink);
+        }
+        
+        .value-title {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+        
+        .value-desc {
+            color: var(--slate-500);
+            line-height: 1.5;
+        }
+        
+        .team-section {
+            margin-bottom: 3rem;
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+        
+        .team-member {
+            background-color: var(--dark-blue);
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+        
+        .member-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            background: linear-gradient(to right, var(--grape), var(--pink));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+        
+        .member-name {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+        
+        .member-role {
+            color: var(--pink);
+            margin-bottom: 1rem;
+        }
+        
+        .member-desc {
+            color: var(--slate-500);
+            font-size: 0.9rem;
+        }
+        
+        .contact-section {
+            margin-bottom: 3rem;
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .contact-info {
+            background-color: var(--dark-blue);
+            border-radius: 10px;
+            padding: 1.5rem;
+        }
+        
+        .contact-method {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(to right, var(--grape), var(--pink));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+        
+        .contact-details h3 {
+            margin-bottom: 0.5rem;
+        }
+        
+        .contact-details p {
+            color: var(--slate-500);
+        }
+        
+        .map-container {
+            background-color: var(--dark-blue);
+            border-radius: 10px;
+            padding: 1.5rem;
+            height: 100%;
+        }
+        
+        .map-placeholder {
+            width: 100%;
+            height: 300px;
+            background-color: var(--slate);
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--slate-500);
+            font-size: 1.1rem;
+        }
+        
+        .faq-section {
+            margin-bottom: 3rem;
+        }
+        
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .faq-item {
+            background-color: var(--dark-blue);
+            border-radius: 10px;
+            padding: 1.5rem;
+        }
+        
+        .faq-question {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .faq-answer {
+            color: var(--slate-500);
+            line-height: 1.5;
+        }
+        
+        footer {
+            width: 100%;
+            background-color: var(--blue);
+            margin-top: auto;
+            padding: .5rem 0;
+        }
+        .footer-title {
+            margin-bottom: 1rem;
+            margin-top: 2rem;
+            font-weight: 600;
+            border-radius: 5px;
+        }
+        footer  ul  li  a {
+            color: var(--white);
+        }
+        footer  ul  li  a:hover {
+            color: var(--slate-500);
+        }
+        .payment {
+            display: flex;
+            gap: 0.5rem;
+        }
+        .payment  img {
+            border-radius: .3rem;
+            width: 3.5rem;
+        }
+        .copy {
+            background-color: var(--blue);
+            padding: 1rem;
+        }
+        .copyright {
+            color: var(--slate-500);
+        }
+        .sosmed {
+            display: flex;
+            gap: 1rem;
+        }
+        .sosmed  a {
+            color: var(--slate-500);
+        }
+        .sosmed  a:hover {
+            color: var(--white);
+        }
+        
+        @media screen and (min-width:320px){
+           .search-input {
+              margin-left: 10px;
+              width: 80%;
+              padding: 3%;
+              border: none;
+              border-radius: 20px;
+              background-color: var(--slate);
+              color: var(--white);
+          }
+           .left-header > a > img {
+              width: 8rem;
+              margin-top: .5rem;
+           }
+           .content {
+               margin-top: 20%;
+           }
+        }
+        @media screen and (min-width:350px){
+           .search-input {
+              margin-left: 10px;
+              width: 100%;
+              padding: 3%;
+              border: none;
+              border-radius: 20px;
+              background-color: var(--slate);
+              color: var(--white);
+          }
+        }
+        @media screen and (min-width:724px) {
+           .content {
+               margin-top: 15%;
+           }
+        }
+        @media screen and (min-width:1024px) {
+           .header {
+               padding-bottom: 0;
+           }
+           .content {
+               margin-top: 8%;
+           }
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .about-section,
+        .values-grid,
+        .team-section,
+        .contact-section,
+        .faq-section {
+            animation: fadeInUp 0.6s ease;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="wrap">
+            <div class="left-header">
+                <a href="#"><img src="img/logo.gif" alt="" width="150px"></a>
+                <div class="search">
+                    <input class="search-input" type="search" name="search" id="" placeholder="Search Here">
+                </div>
+            </div>
+            <nav class="navbar">
+                <ul>
+                    <li>
+                        <a href="katalog.html">Katalog
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-door-fill" viewBox="0 0 16 16">
+                                <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5z"/>
+                            </svg>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="promo.html">Promo
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag-plus-fill" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5v-.5zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0zM8.5 8a.5.5 0 0 0-1 0v1.5H6a.5.5 0 0 0 0 1h1.5V12a.5.5 0 0 0 1 0v-1.5H10a.5.5 0 0 0 0-1H8.5V8z"/>
+                            </svg>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="about.html">Service
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-journal-text" viewBox="0 0 16 16">
+                                <path d="M5 10.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
+                                <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z"/>
+                                <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"/>
+                            </svg>
+                        </a>
+                    </li>
+                    <li class="login-btn">
+                        <a href="login.html" class="btn"> Login
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-in-right" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0v-2z"/>
+                                <path fill-rule="evenodd" d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
+                            </svg>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="content">
+        <div class="wrap">
+            <h1 class="page-title">Tentang RickStore</h1>
+            
+            <div class="about-section">
+                <h2 class="section-title">Siapa Kami?</h2>
+                <p class="about-text">
+                    <span class="highlight">RickStore</span> adalah platform terdepan untuk top up game dan voucher digital di Indonesia. 
+                    Didirikan pada tahun 2020, kami telah melayani lebih dari <span class="highlight">500.000 pelanggan</span> 
+                    dengan berbagai kebutuhan gaming mereka.
+                </p>
+                <p class="about-text">
+                    Kami berkomitmen untuk memberikan pengalaman terbaik dalam bertransaksi dengan proses yang cepat, 
+                    aman, dan harga yang kompetitif. Dengan dukungan berbagai metode pembayaran dan layanan customer service 
+                    yang responsif, RickStore menjadi pilihan utama bagi para gamer Indonesia.
+                </p>
+            </div>
+            
+            <div class="values-grid">
+                <div class="value-card">
+                    <div class="value-icon">⚡</div>
+                    <h3 class="value-title">Proses Cepat</h3>
+                    <p class="value-desc">
+                        Transaksi selesai dalam hitungan menit dengan sistem otomatis 24/7. 
+                        Tidak perlu menunggu lama untuk item game Anda.
+                    </p>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon">🔒</div>
+                    <h3 class="value-title">Keamanan Terjamin</h3>
+                    <p class="value-desc">
+                        Sistem pembayaran yang aman dengan enkripsi data. 
+                        Informasi pribadi Anda terlindungi dengan standar keamanan tertinggi.
+                    </p>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon">💰</div>
+                    <h3 class="value-title">Harga Terjangkau</h3>
+                    <p class="value-desc">
+                        Harga kompetitif dengan berbagai promo dan diskon menarik. 
+                        Dapatkan nilai terbaik untuk setiap transaksi Anda.
+                    </p>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon">🎮</div>
+                    <h3 class="value-title">Game Lengkap</h3>
+                    <p class="value-desc">
+                        Mendukung berbagai game populer seperti Mobile Legends, Free Fire, 
+                        PUBG Mobile, Valorant, dan masih banyak lagi.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="team-section">
+                <h2 class="section-title">Tim Kami</h2>
+                <div class="team-grid">
+                    <div class="team-member">
+                        <div class="member-avatar">RS</div>
+                        <h3 class="member-name">Ricky Setiawan</h3>
+                        <div class="member-role">Founder & CEO</div>
+                        <p class="member-desc">
+                            Pendiri RickStore dengan pengalaman lebih dari 5 tahun di industri gaming dan teknologi.
+                        </p>
+                    </div>
+                    
+                    <div class="team-member">
+                        <div class="member-avatar">AS</div>
+                        <h3 class="member-name">Andi Saputra</h3>
+                        <div class="member-role">CTO</div>
+                        <p class="member-desc">
+                            Bertanggung jawab atas pengembangan teknologi dan keamanan platform RickStore.
+                        </p>
+                    </div>
+                    
+                    <div class="team-member">
+                        <div class="member-avatar">DM</div>
+                        <h3 class="member-name">Dewi Mulyani</h3>
+                        <div class="member-role">Head of Customer Service</div>
+                        <p class="member-desc">
+                            Memastikan setiap pelanggan mendapatkan pengalaman terbaik dalam bertransaksi.
+                        </p>
+                    </div>
+                    
+                    <div class="team-member">
+                        <div class="member-avatar">FA</div>
+                        <h3 class="member-name">Fajar Aditya</h3>
+                        <div class="member-role">Marketing Manager</div>
+                        <p class="member-desc">
+                            Mengembangkan strategi pemasaran dan partnership untuk memperluas jangkauan RickStore.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="contact-section">
+                <h2 class="section-title">Hubungi Kami</h2>
+                <div class="contact-grid">
+                    <div class="contact-info">
+                        <div class="contact-method">
+                            <div class="contact-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+                                    <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+                                </svg>
+                            </div>
+                            <div class="contact-details">
+                                <h3>Alamat</h3>
+                                <p>Gedung A10, Kampus Unesa<br>Lidah Wetan, Kec. Lakarsantri<br>Surabaya, Jawa Timur 60213</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-method">
+                            <div class="contact-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-telephone-fill" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z"/>
+                                </svg>
+                            </div>
+                            <div class="contact-details">
+                                <h3>Telepon</h3>
+                                <p>+62 812-3456-7890</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-method">
+                            <div class="contact-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-envelope-fill" viewBox="0 0 16 16">
+                                    <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697ZM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757Zm3.436-.586L16 11.801V4.697l-5.803 3.546Z"/>
+                                </svg>
+                            </div>
+                            <div class="contact-details">
+                                <h3>Email</h3>
+                                <p>info@rickstore.com</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-method">
+                            <div class="contact-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-clock-fill" viewBox="0 0 16 16">
+                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/>
+                                </svg>
+                            </div>
+                            <div class="contact-details">
+                                <h3>Jam Operasional</h3>
+                                <p>Senin - Minggu: 24/7<br>Customer Service: 08.00 - 22.00 WIB</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="map-container">
+                        <h3 style="margin-bottom: 1rem;">Lokasi Kami</h3>
+                        <div class="map-placeholder">
+                            Peta Lokasi: Gedung A10 Unesa
+                        </div>
+                        <p style="margin-top: 1rem; color: var(--slate-500);">
+                            Kami berlokasi di Gedung A10 Kampus Unesa, Surabaya. 
+                            Silakan kunjungi kantor kami selama jam operasional.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-section">
+                <h2 class="section-title">Pertanyaan Umum</h2>
+                <div class="faq-grid">
+                    <div class="faq-item">
+                        <div class="faq-question">Bagaimana cara melakukan top up di RickStore?</div>
+                        <div class="faq-answer">
+                            Pilih game dan produk yang ingin dibeli, masukkan ID game Anda, 
+                            pilih metode pembayaran, dan selesaikan transaksi. Item akan masuk 
+                            secara otomatis ke akun game Anda.
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">Berapa lama proses top up biasanya?</div>
+                        <div class="faq-answer">
+                            Proses top up biasanya memakan waktu 1-5 menit setelah pembayaran berhasil. 
+                            Namun dalam beberapa kasus bisa memakan waktu hingga 15 menit tergantung kondisi server game.
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">Apakah RickStore aman digunakan?</div>
+                        <div class="faq-answer">
+                            Ya, RickStore menggunakan sistem keamanan terenkripsi dan telah melayani 
+                            ratusan ribu transaksi dengan aman. Data pribadi Anda terlindungi dengan baik.
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">Metode pembayaran apa saja yang tersedia?</div>
+                        <div class="faq-answer">
+                            Kami mendukung berbagai metode pembayaran termasuk transfer bank (BCA, Mandiri, BNI, BRI), 
+                            e-wallet (Gopay, Dana, OVO, LinkAja), dan pembayaran di gerai retail (Alfamart, Indomaret).
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">Bagaimana jika item tidak masuk ke akun saya?</div>
+                        <div class="faq-answer">
+                            Jika item tidak masuk dalam waktu 30 menit, silakan hubungi customer service 
+                            kami dengan menyertakan bukti pembayaran. Tim kami akan membantu menyelesaikan masalah Anda.
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">Apakah RickStore menyediakan layanan refund?</div>
+                        <div class="faq-answer">
+                            Refund hanya dapat dilakukan dalam kondisi tertentu seperti duplikat pembayaran 
+                            atau kesalahan sistem. Silakan hubungi customer service untuk informasi lebih lanjut.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="wrap">
+            <div class="footer-one">
+                <p class="footer-title">Product</p>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="katalog.html">Katalog</a></li>
+                    <li><a href="about.html">Tentang</a></li>
+                    <li><a href="ulasan.html">Ulasan</a></li>
+                    <li><a href="login.html">Login</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-two">
+                <p class="footer-title">Populer</p>
+                <ul>
+                    <li><a href="#">Topup Roblok</a></li>
+                    <li><a href="#">Beli Kraken</a></li>
+                    <li><a href="#">Fish It</a></li>
+                    <li><a href="#">Topup DM Ml</a></li>
+                    <li><a href="#">Robux Murah</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-three">
+                <p class="footer-title">Tentang</p>
+                <ul>
+                    <li><a href="#">Website</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Alamat</a></li>
+                    <li><a href="#">Kontak</a></li>
+                    <li><a href="#">Support</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-four">
+                <p class="footer-title">Payment</p>
+                <ul class="payment">
+                    <li><img src="img/alfamart.jpg" alt=""></li>
+                    <li><img src="img/indomaret.webp" alt=""></li>
+                    <li><img src="img/gopay.jpg" alt=""></li>
+                    <li><img src="img/dana.jpg" alt=""></li>
+                    <li><img src="img/shoppe.jpg" alt=""></li>
+                </ul>
+                <ul class="payment">
+                    <li><img src="img/mandiri.jpg" alt=""></li>
+                    <li><img src="img/bni.jpg" alt=""></li>
+                    <li><img src="img/bca.jpg" alt=""></li>
+                    <li><img src="img/bri.jpg" alt=""></li>
+                    <li><img src="img/shoppe.jpg" alt=""></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <div class="copy">
+        <div class="wrap">
+            <div class="copyright">
+                &copy; 2023 RickStore. All Right Reserved
+            </div>
+            <div class="sosmed">
+                <div class="facebook">
+                    <a href="http://" target="_blank" rel="noopener noreferrer">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-facebook" viewBox="0 0 16 16">
+                            <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z"/>
+                        </svg>
+                    </a>
+                </div>
+
+                <div class="instagram">
+                    <a href="http://" target="_blank" rel="noopener noreferrer">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-instagram" viewBox="0 0 16 16">
+                            <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z"/>
+                        </svg>
+                    </a>
+                </div>
+
+                <div class="youtube">
+                    <a href="http://" target="_blank" rel="noopener noreferrer">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-youtube" viewBox="0 0 16 16">
+                            <path d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.007 2.007 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.007 2.007 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31.4 31.4 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.007 2.007 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A99.788 99.788 0 0 1 7.858 2h.193zM6.4 5.209v4.818l4.157-2.408L6.4 5.209z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

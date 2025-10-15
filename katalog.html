@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Katalog - RickStore</title>
+    <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css"/>
+    <style>
+        :root{
+            --white : #fff;
+            --black : #000;
+            --dark-blue : #2C2546;
+            --pink : #fa0758;
+            --grape : #8134AF;
+            --slate : #0f172a;
+            --slate-500 : #64748b;
+            --blue : #211166;
+        }
+        *,
+        *::before,
+        *::after {
+            list-style-type: none;
+            text-decoration: none;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Tahoma';
+        }
+        body {
+            background-color: var(--black);
+            color: var(--white);
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            z-index: 999;
+            width: 100%;
+            background-color: var(--blue);
+            padding-bottom: 2%;
+        }
+        .wrap {
+            max-width: 1100px;
+            margin: auto;
+            padding-left: 2rem;
+            padding-right: 2rem;
+        }
+        .left-header {
+            display: flex;
+        }
+        .search {
+            margin-top: 18px;
+            margin-bottom: 15px;
+        }
+        .search-input {
+            width: 120%;
+            padding: 3%;
+            border: none;
+            background-color: var(--slate);
+        }
+        .navbar  ul {
+            display: flex;
+        }
+        .navbar  ul  li  a {
+            display: inline-block;
+            flex-direction: column;
+            padding: 1.5px;
+            min-width: 85px;
+            color: var(--white);
+        }
+        .login-btn {
+            background-image: linear-gradient(to right,var(--grape),var(--pink));
+            border-radius: 5px;
+        }
+        
+        .content {
+            margin-top: 10%;
+            margin-bottom: 5%;
+        }
+        .content  ul  li {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            border-radius: 999px;
+            border: 1px solid var(--slate-500);
+            padding: 2%;
+            margin-top: 10px;
+        }
+        .content  ul  li  a {
+            font-size: 10pt;
+            color: var(--slate-500);
+        }
+        ul  li.active  a {
+            color: var(--white);
+        }
+        
+        .game-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background-color: var(--dark-blue);
+            border-radius: 10px;
+        }
+        
+        .game-logo {
+            width: 80px;
+            height: 80px;
+            border-radius: 10px;
+            margin-right: 1rem;
+            background: linear-gradient(to right, var(--grape), var(--pink));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.8rem;
+            text-align: center;
+        }
+        
+        .game-info {
+            flex-grow: 1;
+        }
+        
+        .game-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .game-developer {
+            color: var(--slate-500);
+            margin-bottom: 0.5rem;
+        }
+        
+        .game-features {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.8rem;
+        }
+        
+        .feature-icon {
+            color: var(--pink);
+        }
+        
+        .game-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .rating-stars {
+            color: gold;
+        }
+        
+        .rating-text {
+            font-size: 0.9rem;
+        }
+        
+        .account-inputs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .input-group {
+            margin-bottom: 1rem;
+        }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: 5px;
+            border: 1px solid var(--slate-500);
+            background-color: var(--slate);
+            color: var(--white);
+        }
+        
+        .section-title {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--slate-500);
+        }
+        
+        .flash-sale {
+            background-color: var(--pink);
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            margin-right: 0.5rem;
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .product-card {
+            background-color: var(--dark-blue);
+            border-radius: 10px;
+            padding: 1rem;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        
+        .product-card.selected {
+            border: 2px solid var(--pink);
+        }
+        
+        .product-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .product-price {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: var(--pink);
+        }
+        
+        .product-bonus {
+            font-size: 0.8rem;
+            color: var(--slate-500);
+            margin-bottom: 0.5rem;
+        }
+        
+        .product-action {
+            text-align: center;
+            padding: 0.5rem;
+            background: linear-gradient(to right, var(--grape), var(--pink));
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .quantity-selector {
+            margin-bottom: 2rem;
+        }
+        
+        .quantity-input {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .quantity-btn {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: var(--slate);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        
+        .quantity-value {
+            width: 60px;
+            text-align: center;
+        }
+        
+        .payment-methods {
+            margin-bottom: 2rem;
+        }
+        
+        .payment-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .payment-tab {
+            padding: 0.5rem 1rem;
+            background-color: var(--slate);
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .payment-tab.active {
+            background: linear-gradient(to right, var(--grape), var(--pink));
+        }
+        
+        .payment-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 1rem;
+        }
+        
+        .payment-option {
+            background-color: var(--dark-blue);
+            border-radius: 5px;
+            padding: 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .payment-option:hover {
+            transform: scale(1.05);
+        }
+        
+        .payment-option.selected {
+            border: 2px solid var(--pink);
+        }
+        
+        .payment-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 5px;
+            margin: 0 auto 0.5rem;
+            background-color: var(--slate);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .contact-details {
+            margin-bottom: 2rem;
+        }
+        
+        .contact-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        
+        .btn-checkout {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(to right, var(--grape), var(--pink));
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            margin-bottom: 2rem;
+        }
+        
+        .game-description {
+            background-color: var(--dark-blue);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .faq-section {
+            margin-bottom: 2rem;
+        }
+        
+        .faq-item {
+            margin-bottom: 1rem;
+            border-bottom: 1px solid var(--slate-500);
+            padding-bottom: 1rem;
+        }
+        
+        .faq-question {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .faq-answer {
+            color: var(--slate-500);
+        }
+        
+        footer {
+            width: 100%;
+            background-color: var(--blue);
+            margin-top: 1.5rem;
+            padding: .5rem 0;
+        }
+        .footer-title {
+            margin-bottom: 1rem;
+            margin-top: 2rem;
+            font-weight: 600;
+            border-radius: 5px;
+        }
+        footer  ul  li  a {
+            color: var(--white);
+        }
+        footer  ul  li  a:hover {
+            color: var(--slate-500);
+        }
+        .payment {
+            display: flex;
+            gap: 0.5rem;
+        }
+        .payment  img {
+            border-radius: .3rem;
+            width: 3.5rem;
+        }
+        .copy {
+            background-color: var(--blue);
+            padding: 1rem;
+        }
+        .copyright {
+            color: var(--slate-500);
+        }
+        .sosmed {
+            display: flex;
+            gap: 1rem;
+        }
+        .sosmed  a {
+            color: var(--slate-500);
+        }
+        .sosmed  a:hover {
+            color: var(--white);
+        }
+        
+        @media screen and (min-width:320px){
+           .search-input {
+              margin-left: 10px;
+              width: 80%;
+              padding: 3%;
+              border: none;
+              border-radius: 20px;
+              background-color: var(--slate);
+              color: var(--white);
+          }
+           .left-header > a > img {
+              width: 8rem;
+              margin-top: .5rem;
+           }
+           .content {
+               margin-top: 20%;
+           }
+           .account-inputs {
+               grid-template-columns: 1fr;
+           }
+           .products-grid {
+               grid-template-columns: repeat(2, 1fr);
+           }
+           .contact-form {
+               grid-template-columns: 1fr;
+           }
+        }
+        @media screen and (min-width:350px){
+           .search-input {
+              margin-left: 10px;
+              width: 100%;
+              padding: 3%;
+              border: none;
+              border-radius: 20px;
+              background-color: var(--slate);
+              color: var(--white);
+          }
+        }
+        @media screen and (min-width:724px) {
+           .content {
+               margin-top: 15%;
+           }
+           .account-inputs {
+               grid-template-columns: 1fr 1fr;
+           }
+           .products-grid {
+               grid-template-columns: repeat(3, 1fr);
+           }
+           .contact-form {
+               grid-template-columns: 1fr 1fr;
+           }
+        }
+        @media screen and (min-width:1024px) {
+           .header {
+               padding-bottom: 0;
+           }
+           .content {
+               margin-top: 8%;
+           }
+           .products-grid {
+               grid-template-columns: repeat(4, 1fr);
+           }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="wrap">
+            <div class="left-header">
+                <a href="#"><img src="img/logo.gif" alt="" width="150px"></a>
+                <div class="search">
+                    <input class="search-input" type="search" name="search" id="" placeholder="Search Here">
+                </div>
+            </div>
+            <nav class="navbar">
+                <ul>
+                    <li>
+                        <a href="katalog.html">Katalog
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-door-fill" viewBox="0 0 16 16">
+                                <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5z"/>
+                            </svg>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="promo.html">Promo
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag-plus-fill" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5v-.5zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0zM8.5 8a.5.5 0 0 0-1 0v1.5H6a.5.5 0 0 0 0 1h1.5V12a.5.5 0 0 0 1 0v-1.5H10a.5.5 0 0 0 0-1H8.5V8z"/>
+                            </svg>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="about.html">Service
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-journal-text" viewBox="0 0 16 16">
+                                <path d="M5 10.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
+                                <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z"/>
+                                <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"/>
+                            </svg>
+                        </a>
+                    </li>
+                    <li class="login-btn">
+                        <a href="login.html" class="btn"> Login
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-in-right" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0v-2z"/>
+                                <path fill-rule="evenodd" d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
+                            </svg>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="content">
+        <div class="wrap">
+            <div class="game-header">
+                <div class="game-logo">MOBILE LEGENDS</div>
+                <div class="game-info">
+                    <div class="game-title">MOBILE LEGENDS</div>
+                    <div class="game-developer">Moonton</div>
+                    <div class="game-features">
+                        <div class="feature">
+                            <span class="feature-icon">✓</span>
+                            <span>Proses Cepat</span>
+                        </div>
+                        <div class="feature">
+                            <span class="feature-icon">✓</span>
+                            <span>Layanan Chat 24/7</span>
+                        </div>
+                        <div class="feature">
+                            <span class="feature-icon">✓</span>
+                            <span>Pembayaran Aman</span>
+                        </div>
+                    </div>
+                    <div class="game-rating">
+                        <div class="rating-stars">★★★★★</div>
+                        <div class="rating-text">4.99 (51.93jt rating)</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="account-inputs">
+                <div class="input-group">
+                    <label for="player-id">Masukkan ID</label>
+                    <input type="text" id="player-id" class="form-control" placeholder="Player ID">
+                </div>
+                <div class="input-group">
+                    <label for="server-id">Masukkan Server</label>
+                    <input type="text" id="server-id" class="form-control" placeholder="Server ID">
+                </div>
+            </div>
+            
+            <h2 class="section-title">
+                <span class="flash-sale">FLASH SALE</span>
+                Pilih Nominal
+            </h2>
+            
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-title">Weekly Diamond Pass (Limited)</div>
+                    <div class="product-price">Rp 24.379</div>
+                    <div class="product-bonus">Bonus: Weekly Pass</div>
+                    <div class="product-action">Pilih</div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-title">100 (50+50) Diamonds</div>
+                    <div class="product-price">Rp 12.727</div>
+                    <div class="product-bonus">First Top Up (Double)</div>
+                    <div class="product-action">Pilih</div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-title">300 (150+150) Diamonds</div>
+                    <div class="product-price">Rp 38.081</div>
+                    <div class="product-bonus">First Top Up (Double)</div>
+                    <div class="product-action">Pilih</div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-title">500 (250+250) Diamonds</div>
+                    <div class="product-price">Rp 63.241</div>
+                    <div class="product-bonus">First Top Up (Double)</div>
+                    <div class="product-action">Pilih</div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-title">5 (5+0) Diamonds</div>
+                    <div class="product-price">Rp 1.470</div>
+                    <div class="product-bonus">No Bonus</div>
+                    <div class="product-action">Pilih</div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-title">11 (10+1) Diamonds</div>
+                    <div class="product-price">Rp 2.701</div>
+                    <div class="product-bonus">Bonus +1 Diamond</div>
+                    <div class="product-action">Pilih</div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-title">18 (17+1) Diamonds</div>
+                    <div class="product-price">Rp 4.999</div>
+                    <div class="product-bonus">Bonus +1 Diamond</div>
+                    <div class="product-action">Pilih</div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-title">36 (33+3) Diamonds</div>
+                    <div class="product-price">Rp 9.999</div>
+                    <div class="product-bonus">Bonus +3 Diamonds</div>
+                    <div class="product-action">Pilih</div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-title">59 (53+6) Diamonds</div>
+                    <div class="product-price">Rp 15.999</div>
+                    <div class="product-bonus">Bonus +6 Diamonds</div>
+                    <div class="product-action">Pilih</div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-title">86 (78+8) Diamonds</div>
+                    <div class="product-price">Rp 21.917</div>
+                    <div class="product-bonus">Bonus +8 Diamonds</div>
+                    <div class="product-action">Pilih</div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-title">172 (156+16) Diamonds</div>
+                    <div class="product-price">Rp 38.212</div>
+                    <div class="product-bonus">Bonus +16 Diamonds</div>
+                    <div class="product-action">Pilih</div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-title">257 (234+23) Diamonds</div>
+                    <div class="product-price">Rp 57.187</div>
+                    <div class="product-bonus">Bonus +23 Diamonds</div>
+                    <div class="product-action">Pilih</div>
+                </div>
+            </div>
+            
+            <div class="quantity-selector">
+                <h2 class="section-title">Masukkan Jumlah Pembelian</h2>
+                <div class="quantity-input">
+                    <div class="quantity-btn">-</div>
+                    <div class="quantity-value">1</div>
+                    <div class="quantity-btn">+</div>
+                </div>
+            </div>
+            
+            <div class="payment-methods">
+                <h2 class="section-title">Pilih Pembayaran</h2>
+                <div class="payment-tabs">
+                    <div class="payment-tab active">E-Wallet</div>
+                    <div class="payment-tab">Virtual Account</div>
+                    <div class="payment-tab">Convenience Store</div>
+                </div>
+                <div class="payment-options">
+                    <div class="payment-option">
+                        <div class="payment-icon">GOPAY</div>
+                        <div class="payment-name">Gopay</div>
+                    </div>
+                    <div class="payment-option">
+                        <div class="payment-icon">DANA</div>
+                        <div class="payment-name">Dana</div>
+                    </div>
+                    <div class="payment-option">
+                        <div class="payment-icon">OVO</div>
+                        <div class="payment-name">OVO</div>
+                    </div>
+                    <div class="payment-option">
+                        <div class="payment-icon">LINK</div>
+                        <div class="payment-name">LinkAja</div>
+                    </div>
+                    <div class="payment-option">
+                        <div class="payment-icon">BCA</div>
+                        <div class="payment-name">BCA VA</div>
+                    </div>
+                    <div class="payment-option">
+                        <div class="payment-icon">MDR</div>
+                        <div class="payment-name">Mandiri VA</div>
+                    </div>
+                    <div class="payment-option">
+                        <div class="payment-icon">BNI</div>
+                        <div class="payment-name">BNI VA</div>
+                    </div>
+                    <div class="payment-option">
+                        <div class="payment-icon">BRI</div>
+                        <div class="payment-name">BRI VA</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="contact-details">
+                <h2 class="section-title">Detail Kontak</h2>
+                <div class="contact-form">
+                    <div class="input-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" class="form-control" placeholder="contoh@gmail.com">
+                    </div>
+                    <div class="input-group">
+                        <label for="whatsapp">WhatsApp</label>
+                        <input type="text" id="whatsapp" class="form-control" placeholder="+62">
+                    </div>
+                </div>
+                <p>Bukti transaksi akan dikirim ke email diatas</p>
+            </div>
+            
+            <button class="btn-checkout">Lanjutkan ke Checkout</button>
+            
+            <div class="game-description">
+                <h2 class="section-title">Deskripsi Mobile Legends</h2>
+                <p>Cara top up Mobile Legends Diamond dan Weekly Diamond Pass harga termurah proses cepat instant dengan pembayaran 100% aman terlengkap:</p>
+                <ol>
+                    <li>Pilih nominal</li>
+                    <li>Masukkan data akun</li>
+                    <li>Masukkan jumlah pembelian</li>
+                    <li>Pilih pembayaran</li>
+                    <li>Isi detail kontak</li>
+                    <li>Masukkan kode promo (jika ada)</li>
+                    <li>Klik order dan lakukan pembayaran</li>
+                    <li>Selesai</li>
+                </ol>
+                <p>Mobile Legends: Bang Bang adalah game multiplayer online battle arena (MOBA) yang dikembangkan oleh Moonton. Game ini memungkinkan pemain untuk bertarung dalam tim 5v5 dengan tujuan utama untuk menghancurkan basis musuh sambil mempertahankan basis tim sendiri.</p>
+                <p>Beberapa elemen penting dalam game ini adalah:</p>
+                <ul>
+                    <li>Pahlawan (Heroes): Pemain memilih karakter pahlawan (hero) dengan kemampuan unik dan peran tertentu, seperti Tank, Fighter, Assassin, Mage, Marksman, atau Support. Setiap pahlawan memiliki skill khusus yang bisa digunakan dalam pertempuran</li>
+                    <li>Peta dan Mode Permainan: Permainan ini memiliki pata standar dengan tiga jalur (lane) yang biasa digunakan untuk bertempur, yaitu atas, tengah, dan bawah. Tujuan utama adalah untuk menghancurkan turret dan akhirnya mencapai basis musuh Selain mode 5v5, ada juga mode permainan lain seperti Brawl dan Ranked.</li>
+                </ul>
+            </div>
+            
+            <div class="faq-section">
+                <h2 class="section-title">Kamu Punya Pertanyaan?</h2>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Apakah aman melakukan top up di RickStore?</span>
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer" style="display: none;">
+                        Ya, RickStore menggunakan sistem pembayaran yang aman dan terpercaya. Semua transaksi dilindungi dengan enkripsi untuk keamanan data Anda.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Berapa lama item masuk ke akun saya?</span>
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer" style="display: none;">
+                        Proses top up biasanya memakan waktu 1-5 menit setelah pembayaran berhasil. Namun, dalam beberapa kasus bisa memakan waktu hingga 15 menit tergantung kondisi server game.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Metode pembayaran apa saja yang tersedia di RickStore?</span>
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer" style="display: none;">
+                        RickStore menyediakan berbagai metode pembayaran termasuk e-wallet (Gopay, Dana, OVO, LinkAja), transfer bank (BCA, Mandiri, BNI, BRI), dan pembayaran di gerai retail (Alfamart, Indomaret).
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Bagaimana cara mengetahui ID saya?</span>
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer" style="display: none;">
+                        ID Anda dapat ditemukan di profil game Anda. Biasanya terletak di bagian profil atau pengaturan akun dalam game.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="wrap">
+            <div class="footer-one">
+                <p class="footer-title">Product</p>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="katalog.html">Katalog</a></li>
+                    <li><a href="about.html">Tentang</a></li>
+                    <li><a href="ulasan.html">Ulasan</a></li>
+                    <li><a href="login.html">Login</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-two">
+                <p class="footer-title">Populer</p>
+                <ul>
+                    <li><a href="#">Topup Roblok</a></li>
+                    <li><a href="#">Beli Kraken</a></li>
+                    <li><a href="#">Fish It</a></li>
+                    <li><a href="#">Topup DM Ml</a></li>
+                    <li><a href="#">Robux Murah</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-three">
+                <p class="footer-title">Tentang</p>
+                <ul>
+                    <li><a href="#">Website</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Alamat</a></li>
+                    <li><a href="#">Kontak</a></li>
+                    <li><a href="#">Support</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-four">
+                <p class="footer-title">Payment</p>
+                <ul class="payment">
+                    <li><img src="img/alfamart.jpg" alt=""></li>
+                    <li><img src="img/indomaret.webp" alt=""></li>
+                    <li><img src="img/gopay.jpg" alt=""></li>
+                    <li><img src="img/dana.jpg" alt=""></li>
+                    <li><img src="img/shoppe.jpg" alt=""></li>
+                </ul>
+                <ul class="payment">
+                    <li><img src="img/mandiri.jpg" alt=""></li>
+                    <li><img src="img/bni.jpg" alt=""></li>
+                    <li><img src="img/bca.jpg" alt=""></li>
+                    <li><img src="img/bri.jpg" alt=""></li>
+                    <li><img src="img/shoppe.jpg" alt=""></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <div class="copy">
+        <div class="wrap">
+            <div class="copyright">
+                &copy; 2023 RickStore. All Right Reserved
+            </div>
+            <div class="sosmed">
+                <div class="facebook">
+                    <a href="http://" target="_blank" rel="noopener noreferrer">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-facebook" viewBox="0 0 16 16">
+                            <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z"/>
+                        </svg>
+                    </a>
+                </div>
+
+                <div class="instagram">
+                    <a href="http://" target="_blank" rel="noopener noreferrer">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-instagram" viewBox="0 0 16 16">
+                            <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z"/>
+                        </svg>
+                    </a>
+                </div>
+
+                <div class="youtube">
+                    <a href="http://" target="_blank" rel="noopener noreferrer">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-youtube" viewBox="0 0 16 16">
+                            <path d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.007 2.007 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.007 2.007 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31.4 31.4 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.007 2.007 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A99.788 99.788 0 0 1 7.858 2h.193zM6.4 5.209v4.818l4.157-2.408L6.4 5.209z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Product selection
+        document.querySelectorAll('.product-card').forEach(card => {
+            card.addEventListener('click', function() {
+                document.querySelectorAll('.product-card').forEach(c => {
+                    c.classList.remove('selected');
+                });
+                this.classList.add('selected');
+            });
+        });
+        
+        // Payment method selection
+        document.querySelectorAll('.payment-option').forEach(option => {
+            option.addEventListener('click', function() {
+                document.querySelectorAll('.payment-option').forEach(o => {
+                    o.classList.remove('selected');
+                });
+                this.classList.add('selected');
+            });
+        });
+        
+        // Quantity selector
+        const quantityValue = document.querySelector('.quantity-value');
+        document.querySelectorAll('.quantity-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                let value = parseInt(quantityValue.textContent);
+                if (this.textContent === '+') {
+                    value++;
+                } else if (this.textContent === '-' && value > 1) {
+                    value--;
+                }
+                quantityValue.textContent = value;
+            });
+        });
+        
+        // FAQ toggle
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', function() {
+                const answer = this.nextElementSibling;
+                const isVisible = answer.style.display === 'block';
+                
+                document.querySelectorAll('.faq-answer').forEach(a => {
+                    a.style.display = 'none';
+                });
+                
+                document.querySelectorAll('.faq-question').forEach(q => {
+                    q.querySelector('span:last-child').textContent = '+';
+                });
+                
+                if (!isVisible) {
+                    answer.style.display = 'block';
+                    this.querySelector('span:last-child').textContent = '-';
+                }
+            });
+        });
+        
+        // Checkout button
+        document.querySelector('.btn-checkout').addEventListener('click', function() {
+            const selectedProduct = document.querySelector('.product-card.selected');
+            if (!selectedProduct) {
+                alert('Silakan pilih produk terlebih dahulu');
+                return;
+            }
+            
+            const selectedPayment = document.querySelector('.payment-option.selected');
+            if (!selectedPayment) {
+                alert('Silakan pilih metode pembayaran terlebih dahulu');
+                return;
+            }
+            
+            // Redirect to checkout page
+            window.location.href = 'checkout.html';
+        });
+    </script>
+</body>
+</html>

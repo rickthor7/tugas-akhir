@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - RickStore</title>
+    <style>
+        :root{
+            --white : #fff;
+            --black : #000;
+            --dark-blue : #2C2546;
+            --pink : #fa0758;
+            --grape : #8134AF;
+            --slate : #0f172a;
+            --slate-500 : #64748b;
+            --blue : #211166;
+        }
+        *,
+        *::before,
+        *::after {
+            list-style-type: none;
+            text-decoration: none;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Tahoma';
+        }
+        body {
+            background-color: var(--black);
+            color: var(--white);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            z-index: 999;
+            width: 100%;
+            background-color: var(--blue);
+            padding-bottom: 2%;
+        }
+        .wrap {
+            max-width: 1100px;
+            margin: auto;
+            padding-left: 2rem;
+            padding-right: 2rem;
+        }
+        .left-header {
+            display: flex;
+        }
+        .search {
+            margin-top: 18px;
+            margin-bottom: 15px;
+        }
+        .search-input {
+            width: 120%;
+            padding: 3%;
+            border: none;
+            background-color: var(--slate);
+        }
+        .navbar  ul {
+            display: flex;
+        }
+        .navbar  ul  li  a {
+            display: inline-block;
+            flex-direction: column;
+            padding: 1.5px;
+            min-width: 85px;
+            color: var(--white);
+        }
+        .login-btn {
+            background-image: linear-gradient(to right,var(--grape),var(--pink));
+            border-radius: 5px;
+        }
+        
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 2rem;
+            margin-top: 5%;
+        }
+        
+        .login-card {
+            background-color: var(--dark-blue);
+            border-radius: 15px;
+            padding: 2.5rem;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .login-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(to right, var(--grape), var(--pink));
+        }
+        
+        .login-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: linear-gradient(to right, var(--grape), var(--pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .login-tabs {
+            display: flex;
+            margin-bottom: 1.5rem;
+            border-radius: 10px;
+            overflow: hidden;
+            background-color: var(--slate);
+        }
+        
+        .login-tab {
+            flex: 1;
+            text-align: center;
+            padding: 0.75rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .login-tab.active {
+            background: linear-gradient(to right, var(--grape), var(--pink));
+            font-weight: bold;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--slate-500);
+            background-color: var(--slate);
+            color: var(--white);
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--pink);
+            box-shadow: 0 0 0 2px rgba(250, 7, 88, 0.2);
+        }
+        
+        .password-container {
+            position: relative;
+        }
+        
+        .toggle-password {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--slate-500);
+            cursor: pointer;
+        }
+        
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .checkbox {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--pink);
+        }
+        
+        .forgot-password {
+            color: var(--pink);
+            font-size: 0.9rem;
+        }
+        
+        .btn-login {
+            width: 100%;
+            padding: 0.75rem;
+            background: linear-gradient(to right, var(--grape), var(--pink));
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 1.5rem;
+        }
+        
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(129, 52, 175, 0.4);
+        }
+        
+        .divider {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background-color: var(--slate-500);
+        }
+        
+        .divider-text {
+            padding: 0 1rem;
+            color: var(--slate-500);
+            font-size: 0.9rem;
+        }
+        
+        .social-login {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .btn-social {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.75rem;
+            border: 1px solid var(--slate-500);
+            border-radius: 8px;
+            background-color: var(--slate);
+            color: var(--white);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-social:hover {
+            border-color: var(--pink);
+            transform: translateY(-2px);
+        }
+        
+        .register-link {
+            text-align: center;
+            color: var(--slate-500);
+        }
+        
+        .register-link a {
+            color: var(--pink);
+            font-weight: bold;
+        }
+        
+        .login-features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--slate-500);
+        }
+        
+        .feature {
+            text-align: center;
+        }
+        
+        .feature-icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--pink);
+        }
+        
+        .feature-title {
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-bottom: 0.25rem;
+        }
+        
+        .feature-desc {
+            font-size: 0.8rem;
+            color: var(--slate-500);
+        }
+        
+        footer {
+            width: 100%;
+            background-color: var(--blue);
+            margin-top: auto;
+            padding: .5rem 0;
+        }
+        .footer-title {
+            margin-bottom: 1rem;
+            margin-top: 2rem;
+            font-weight: 600;
+            border-radius: 5px;
+        }
+        footer  ul  li  a {
+            color: var(--white);
+        }
+        footer  ul  li  a:hover {
+            color: var(--slate-500);
+        }
+        .payment {
+            display: flex;
+            gap: 0.5rem;
+        }
+        .payment  img {
+            border-radius: .3rem;
+            width: 3.5rem;
+        }
+        .copy {
+            background-color: var(--blue);
+            padding: 1rem;
+        }
+        .copyright {
+            color: var(--slate-500);
+        }
+        .sosmed {
+            display: flex;
+            gap: 1rem;
+        }
+        .sosmed  a {
+            color: var(--slate-500);
+        }
+        .sosmed  a:hover {
+            color: var(--white);
+        }
+        
+        @media screen and (min-width:320px){
+           .search-input {
+              margin-left: 10px;
+              width: 80%;
+              padding: 3%;
+              border: none;
+              border-radius: 20px;
+              background-color: var(--slate);
+              color: var(--white);
+          }
+           .left-header > a > img {
+              width: 8rem;
+              margin-top: .5rem;
+           }
+           .login-container {
+               margin-top: 15%;
+           }
+           .login-features {
+               grid-template-columns: 1fr;
+           }
+        }
+        @media screen and (min-width:350px){
+           .search-input {
+              margin-left: 10px;
+              width: 100%;
+              padding: 3%;
+              border: none;
+              border-radius: 20px;
+              background-color: var(--slate);
+              color: var(--white);
+          }
+        }
+        @media screen and (min-width:724px) {
+           .login-container {
+               margin-top: 10%;
+           }
+           .login-features {
+               grid-template-columns: repeat(3, 1fr);
+           }
+        }
+        @media screen and (min-width:1024px) {
+           .header {
+               padding-bottom: 0;
+           }
+           .login-container {
+               margin-top: 5%;
+           }
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .login-card {
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .form-group {
+            animation: fadeIn 0.5s ease;
+            animation-fill-mode: both;
+        }
+        
+        .form-group:nth-child(1) { animation-delay: 0.1s; }
+        .form-group:nth-child(2) { animation-delay: 0.2s; }
+        .form-group:nth-child(3) { animation-delay: 0.3s; }
+        .form-group:nth-child(4) { animation-delay: 0.4s; }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="wrap">
+            <div class="left-header">
+                <a href="#"><img src="img/logo.gif" alt="" width="150px"></a>
+                <div class="search">
+                    <input class="search-input" type="search" name="search" id="" placeholder="Search Here">
+                </div>
+            </div>
+            <nav class="navbar">
+                <ul>
+                    <li>
+                        <a href="katalog.html">Katalog
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-door-fill" viewBox="0 0 16 16">
+                                <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5z"/>
+                            </svg>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="promo.html">Promo
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag-plus-fill" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5v-.5zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0zM8.5 8a.5.5 0 0 0-1 0v1.5H6a.5.5 0 0 0 0 1h1.5V12a.5.5 0 0 0 1 0v-1.5H10a.5.5 0 0 0 0-1H8.5V8z"/>
+                            </svg>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="about.html">Service
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-journal-text" viewBox="0 0 16 16">
+                                <path d="M5 10.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
+                                <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z"/>
+                                <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"/>
+                            </svg>
+                        </a>
+                    </li>
+                    <li class="login-btn">
+                        <a href="login.html" class="btn"> Login
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-in-right" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0v-2z"/>
+                                <path fill-rule="evenodd" d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
+                            </svg>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="login-container">
+        <div class="login-card">
+            <h1 class="login-title">Masuk ke RickStore</h1>
+            
+            <div class="login-tabs">
+                <div class="login-tab active" id="login-tab">Login</div>
+                <div class="login-tab" id="register-tab">Daftar</div>
+            </div>
+            
+            <form id="login-form" class="login-form">
+                <div class="form-group">
+                    <label for="login-email" class="form-label">Email</label>
+                    <input type="email" id="login-email" class="form-control" placeholder="email@contoh.com" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="login-password" class="form-label">Password</label>
+                    <div class="password-container">
+                        <input type="password" id="login-password" class="form-control" placeholder="Masukkan password" required>
+                        <button type="button" class="toggle-password" id="toggle-login-password">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+                                <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
+                                <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="form-options">
+                    <div class="remember-me">
+                        <input type="checkbox" id="remember-me" class="checkbox">
+                        <label for="remember-me">Ingat saya</label>
+                    </div>
+                    <a href="#" class="forgot-password">Lupa password?</a>
+                </div>
+                
+                <button type="submit" class="btn-login">Masuk</button>
+            </form>
+            
+            <form id="register-form" class="register-form" style="display: none;">
+                <div class="form-group">
+                    <label for="register-name" class="form-label">Nama Lengkap</label>
+                    <input type="text" id="register-name" class="form-control" placeholder="Masukkan nama lengkap" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="register-email" class="form-label">Email</label>
+                    <input type="email" id="register-email" class="form-control" placeholder="email@contoh.com" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="register-password" class="form-label">Password</label>
+                    <div class="password-container">
+                        <input type="password" id="register-password" class="form-control" placeholder="Buat password" required>
+                        <button type="button" class="toggle-password" id="toggle-register-password">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+                                <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
+                                <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="confirm-password" class="form-label">Konfirmasi Password</label>
+                    <div class="password-container">
+                        <input type="password" id="confirm-password" class="form-control" placeholder="Ulangi password" required>
+                        <button type="button" class="toggle-password" id="toggle-confirm-password">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+                                <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
+                                <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="form-options">
+                    <div class="remember-me">
+                        <input type="checkbox" id="agree-terms" class="checkbox" required>
+                        <label for="agree-terms">Saya setuju dengan <a href="#" style="color: var(--pink);">Syarat & Ketentuan</a></label>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn-login">Daftar</button>
+            </form>
+            
+            <div class="divider">
+                <div class="divider-text">Atau lanjutkan dengan</div>
+            </div>
+            
+            <div class="social-login">
+                <button class="btn-social">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-google" viewBox="0 0 16 16">
+                        <path d="M15.545 6.558a9.42 9.42 0 0 1 .139 1.626c0 2.434-.87 4.492-2.384 5.885h.002C11.978 15.292 10.158 16 8 16A8 8 0 1 1 8 0a7.689 7.689 0 0 1 5.352 2.082l-2.284 2.284A4.347 4.347 0 0 0 8 3.166c-2.087 0-3.86 1.408-4.492 3.304a4.792 4.792 0 0 0 0 3.063h.003c.635 1.893 2.405 3.301 4.492 3.301 1.078 0 2.004-.276 2.722-.764h-.003a3.702 3.702 0 0 0 1.599-2.431H8v-3.08h7.545z"/>
+                    </svg>
+                    Google
+                </button>
+                <button class="btn-social">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-facebook" viewBox="0 0 16 16">
+                        <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z"/>
+                    </svg>
+                    Facebook
+                </button>
+            </div>
+            
+            <div class="login-features">
+                <div class="feature">
+                    <div class="feature-icon">✓</div>
+                    <div class="feature-title">Aman</div>
+                    <div class="feature-desc">Data Anda terlindungi</div>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">⚡</div>
+                    <div class="feature-title">Cepat</div>
+                    <div class="feature-desc">Proses login instan</div>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🔒</div>
+                    <div class="feature-title">Terpercaya</div>
+                    <div class="feature-desc">100% garansi keamanan</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="wrap">
+            <div class="footer-one">
+                <p class="footer-title">Product</p>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="katalog.html">Katalog</a></li>
+                    <li><a href="about.html">Tentang</a></li>
+                    <li><a href="ulasan.html">Ulasan</a></li>
+                    <li><a href="login.html">Login</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-two">
+                <p class="footer-title">Populer</p>
+                <ul>
+                    <li><a href="#">Topup Roblok</a></li>
+                    <li><a href="#">Beli Kraken</a></li>
+                    <li><a href="#">Fish It</a></li>
+                    <li><a href="#">Topup DM Ml</a></li>
+                    <li><a href="#">Robux Murah</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-three">
+                <p class="footer-title">Tentang</p>
+                <ul>
+                    <li><a href="#">Website</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Alamat</a></li>
+                    <li><a href="#">Kontak</a></li>
+                    <li><a href="#">Support</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-four">
+                <p class="footer-title">Payment</p>
+                <ul class="payment">
+                    <li><img src="img/alfamart.jpg" alt=""></li>
+                    <li><img src="img/indomaret.webp" alt=""></li>
+                    <li><img src="img/gopay.jpg" alt=""></li>
+                    <li><img src="img/dana.jpg" alt=""></li>
+                    <li><img src="img/shoppe.jpg" alt=""></li>
+                </ul>
+                <ul class="payment">
+                    <li><img src="img/mandiri.jpg" alt=""></li>
+                    <li><img src="img/bni.jpg" alt=""></li>
+                    <li><img src="img/bca.jpg" alt=""></li>
+                    <li><img src="img/bri.jpg" alt=""></li>
+                    <li><img src="img/shoppe.jpg" alt=""></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <div class="copy">
+        <div class="wrap">
+            <div class="copyright">
+                &copy; 2023 RickStore. All Right Reserved
+            </div>
+            <div class="sosmed">
+                <div class="facebook">
+                    <a href="http://" target="_blank" rel="noopener noreferrer">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-facebook" viewBox="0 0 16 16">
+                            <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z"/>
+                        </svg>
+                    </a>
+                </div>
+
+                <div class="instagram">
+                    <a href="http://" target="_blank" rel="noopener noreferrer">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-instagram" viewBox="0 0 16 16">
+                            <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z"/>
+                        </svg>
+                    </a>
+                </div>
+
+                <div class="youtube">
+                    <a href="http://" target="_blank" rel="noopener noreferrer">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-youtube" viewBox="0 0 16 16">
+                            <path d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.007 2.007 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.007 2.007 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31.4 31.4 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.007 2.007 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A99.788 99.788 0 0 1 7.858 2h.193zM6.4 5.209v4.818l4.157-2.408L6.4 5.209z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Toggle between login and register forms
+        const loginTab = document.getElementById('login-tab');
+        const registerTab = document.getElementById('register-tab');
+        const loginForm = document.getElementById('login-form');
+        const registerForm = document.getElementById('register-form');
+        
+        loginTab.addEventListener('click', function() {
+            loginTab.classList.add('active');
+            registerTab.classList.remove('active');
+            loginForm.style.display = 'block';
+            registerForm.style.display = 'none';
+        });
+        
+        registerTab.addEventListener('click', function() {
+            registerTab.classList.add('active');
+            loginTab.classList.remove('active');
+            registerForm.style.display = 'block';
+            loginForm.style.display = 'none';
+        });
+        
+        // Toggle password visibility
+        function setupPasswordToggle(buttonId, inputId) {
+            const toggleButton = document.getElementById(buttonId);
+            const passwordInput = document.getElementById(inputId);
+            
+            toggleButton.addEventListener('click', function() {
+                if (passwordInput.type === 'password') {
+                    passwordInput.type = 'text';
+                    toggleButton.innerHTML = `
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-slash" viewBox="0 0 16 16">
+                            <path d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7.028 7.028 0 0 0-2.79.588l.77.771A5.944 5.944 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.134 13.134 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755-.165.165-.337.328-.517.486l.708.709z"/>
+                            <path d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829l.822.822zm-2.943 1.299.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829z"/>
+                            <path d="M3.35 5.47c-.18.16-.353.322-.518.487A13.134 13.134 0 0 0 1.172 8l.195.288c.335.48.83 1.12 1.465 1.755C4.121 11.332 5.881 12.5 8 12.5c.716 0 1.39-.133 2.02-.36l.77.772A7.029 7.029 0 0 1 8 13.5C3 13.5 0 8 0 8s.939-1.721 2.641-3.238l.708.709zm10.296 8.884-12-12 .708-.708 12 12-.708.708z"/>
+                        </svg>
+                    `;
+                } else {
+                    passwordInput.type = 'password';
+                    toggleButton.innerHTML = `
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+                            <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
+                            <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
+                        </svg>
+                    `;
+                }
+            });
+        }
+        
+        setupPasswordToggle('toggle-login-password', 'login-password');
+        setupPasswordToggle('toggle-register-password', 'register-password');
+        setupPasswordToggle('toggle-confirm-password', 'confirm-password');
+        
+        // Form submission
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Simulate login process
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            
+            if (email && password) {
+                alert('Login berhasil! Selamat datang di RickStore.');
+                // Redirect to homepage or dashboard
+                window.location.href = 'index.html';
+            }
+        });
+        
+        registerForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Simulate registration process
+            const name = document.getElementById('register-name').value;
+            const email = document.getElementById('register-email').value;
+            const password = document.getElementById('register-password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+            
+            if (name && email && password && confirmPassword) {
+                if (password !== confirmPassword) {
+                    alert('Password dan konfirmasi password tidak cocok!');
+                    return;
+                }
+                
+                alert('Pendaftaran berhasil! Silakan login dengan akun Anda.');
+                // Switch to login form
+                loginTab.click();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -470,7 +470,7 @@
             </nav>
         </div>
     </header>
-
+<br><br>
     <div class="login-container">
         <div class="login-card">
             <h1 class="login-title">Masuk ke RickStore</h1>
@@ -654,7 +654,7 @@
     <div class="copy">
         <div class="wrap">
             <div class="copyright">
-                &copy; 2023 RickStore. All Right Reserved
+                &copy; 2025 RickStore. All Right Reserved
             </div>
             <div class="sosmed">
                 <div class="facebook">
@@ -685,7 +685,6 @@
     </div>
 
     <script>
-        // Toggle between login and register forms
         const loginTab = document.getElementById('login-tab');
         const registerTab = document.getElementById('register-tab');
         const loginForm = document.getElementById('login-form');
@@ -705,7 +704,6 @@
             loginForm.style.display = 'none';
         });
         
-        // Toggle password visibility
         function setupPasswordToggle(buttonId, inputId) {
             const toggleButton = document.getElementById(buttonId);
             const passwordInput = document.getElementById(inputId);
@@ -736,23 +734,22 @@
         setupPasswordToggle('toggle-register-password', 'register-password');
         setupPasswordToggle('toggle-confirm-password', 'confirm-password');
         
-        // Form submission
         loginForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            // Simulate login process
+// proses login
             const email = document.getElementById('login-email').value;
             const password = document.getElementById('login-password').value;
             
             if (email && password) {
                 alert('Login berhasil! Selamat datang di RickStore.');
-                // Redirect to homepage or dashboard
+                // pas udh berhasil login, otomatis masjk ke index 
                 window.location.href = 'index.html';
             }
         });
         
         registerForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            // Simulate registration process
+            // Simulasi buat proses login
             const name = document.getElementById('register-name').value;
             const email = document.getElementById('register-email').value;
             const password = document.getElementById('register-password').value;
@@ -765,7 +762,7 @@
                 }
                 
                 alert('Pendaftaran berhasil! Silakan login dengan akun Anda.');
-                // Switch to login form
+                // kembali ke halaman login / tab login
                 loginTab.click();
             }
         });

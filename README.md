@@ -50,7 +50,7 @@ Berisi informasi tentang tujuan website atau latar belakang pengembang.
 
 Digunakan untuk masuk ke sistem menggunakan akun pengguna.
 
-![Login Page](https://i.ibb.co.com/9HGRXhVt/login.png)
+![Login Page](link)
 
 
 
@@ -58,7 +58,7 @@ Digunakan untuk masuk ke sistem menggunakan akun pengguna.
 
 Menyediakan proses transaksi atau pemesanan.
 
-![Checkout Page](https://i.ibb.co.com/GfphRCkV/checkkout.png)
+![Checkout Page](https://raw.githubusercontent.com/rickthor7/tugas-akhir/refs/heads/main/img/thumbnail/checkkout.png)
 
 
 
@@ -94,6 +94,7 @@ Menampilkan ulasan/testimoni dari pengguna.
 ## Lisensi
 
 Proyek ini dibuat untuk keperluan pembelajaran dan non-komersial.
+
 
 
 

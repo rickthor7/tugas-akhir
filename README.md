@@ -42,7 +42,7 @@ Menampilkan tampilan awal website dengan navigasi ke berbagai halaman lain.
 
 Berisi informasi tentang tujuan website atau latar belakang pengembang.
 
-![About Page](https://i.ibb.co.com/mCSt1X8K/about.png)
+![About Page](https://raw.githubusercontent.com/rickthor7/tugas-akhir/refs/heads/main/img/thumbnail/about.png)
 
 
 
@@ -94,5 +94,6 @@ Menampilkan ulasan/testimoni dari pengguna.
 ## Lisensi
 
 Proyek ini dibuat untuk keperluan pembelajaran dan non-komersial.
+
 
 

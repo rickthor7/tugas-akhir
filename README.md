@@ -66,7 +66,7 @@ Menyediakan proses transaksi atau pemesanan.
 
 Menampilkan ulasan/testimoni dari pengguna.
 
-![Ulasan Page](https://i.ibb.co.com/Y4LW0qQb/ulasan.png)
+![Ulasan Page](https://raw.githubusercontent.com/rickthor7/tugas-akhir/refs/heads/main/img/thumbnail/ulasan.png)
 
 
 
@@ -94,6 +94,7 @@ Menampilkan ulasan/testimoni dari pengguna.
 ## Lisensi
 
 Proyek ini dibuat untuk keperluan pembelajaran dan non-komersial.
+
 
 
 

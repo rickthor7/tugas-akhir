@@ -34,7 +34,7 @@ tugas-akhir-main/
 
 Menampilkan tampilan awal website dengan navigasi ke berbagai halaman lain.
 
-![Home Page](https://i.ibb.co.com/QjQth0rP/index1.png)
+![Home Page](https://raw.githubusercontent.com/rickthor7/tugas-akhir/refs/heads/main/img/thumbnail/index1.png)
 
 
 
@@ -94,4 +94,5 @@ Menampilkan ulasan/testimoni dari pengguna.
 ## Lisensi
 
 Proyek ini dibuat untuk keperluan pembelajaran dan non-komersial.
+
 

@@ -75,7 +75,7 @@ Menampilkan ulasan/testimoni dari pengguna.
 * **HTML5** — Struktur dasar website
 * **CSS3** — Desain tampilan dan tata letak
 * **JavaScript (Vanilla)** — Menambah interaktivitas halaman
-* **File lokal** — Untuk menyimpan gambar dan konten statis
+* **AoS JS** — Untuk animasi website
 
 
 
@@ -84,7 +84,7 @@ Menampilkan ulasan/testimoni dari pengguna.
 1. Unduh atau clone repository ini:
 
    ```bash
-   git clone https://github.com/username/tugas-akhir-main.git
+   git clone https://github.com/rickthor7/tugas-akhir-main.git
    ```
 2. Buka folder proyek di editor seperti **VS Code**.
 3. Jalankan file `index.html` langsung di browser.
@@ -94,3 +94,4 @@ Menampilkan ulasan/testimoni dari pengguna.
 ## Lisensi
 
 Proyek ini dibuat untuk keperluan pembelajaran dan non-komersial.
+

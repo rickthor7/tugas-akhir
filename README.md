@@ -3,7 +3,7 @@
 Proyek ini merupakan website statis yang dikembangkan sebagai bagian dari tugas akhir. Website ini terdiri dari beberapa halaman utama seperti **Home**, **About**, **Katalog**, **Promo**, **Login**, **Checkout**, dan **Ulasan**.
 Setiap halaman memiliki peran dan tampilan yang berbeda untuk mendukung alur interaksi pengguna.
 ---
-link youtube: https://youtu.be/pcfzisdg9sI
+link youtube: https://youtu.be/YtXHHi0Nfng?si=R645tGC8oyumRYJF
 
 ## Struktur Proyek
 
@@ -94,6 +94,7 @@ Menampilkan ulasan/testimoni dari pengguna.
 ## Lisensi
 
 Proyek ini dibuat untuk keperluan pembelajaran dan non-komersial.
+
 
 
 

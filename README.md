@@ -50,7 +50,7 @@ Berisi informasi tentang tujuan website atau latar belakang pengembang.
 
 Digunakan untuk masuk ke sistem menggunakan akun pengguna.
 
-![Login Page](link)
+![Login Page](https://github.com/rickthor7/tugas-akhir/blob/main/img/thumbnail/login.png?raw=true)
 
 
 
@@ -94,6 +94,7 @@ Menampilkan ulasan/testimoni dari pengguna.
 ## Lisensi
 
 Proyek ini dibuat untuk keperluan pembelajaran dan non-komersial.
+
 
 
 
